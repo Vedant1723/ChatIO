@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Simple Chat</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+    <H3>Welcome to Simple Chat</H3>
+    <input type="text" id="msg"/>
+    <select id="clients">
+    </select>
+    <button id="action">Send</button>
+    <UL id="communication">
+    </UL>
+    <script>
+        $(document).ready(function(){
+
+        var IO = io()
+        var flag=1
+        var selected_client={}
+        var name = prompt('What is your name ')
+        IO.emit('chatJoined',name)
+
+        IO.on('updateMenu', (online_users)=>{
+            var list_items=""
+            for(var i=0;i<online_users.length;i++) {
+                var item = online_users[i]
+                list_items+= "<option value="+ item.id +">"+item.name+"</option>"
+            }
+            $('#clients').html(list_items)
+        })
+        $('#action').click(function(){
+            var x=$('#msg').val()
+            var id=$('#clients').val()
+            selected_client = {name:name,id:id}
+            alert(selected_client)
+            var data = {message:x, id: selected_client.id, name:selected_client.name}
+            IO.emit('clientMessage',data)
+        })
+        IO.on('broadcastMessage',(data)=>{
+            var msg = "<li>"+data+"</li>"
+            $('#communication').append(msg)
+        })
+        IO.on('serverMessage', (data)=>{
+            var msg=""
+            msg = "<li>"+data+"</li>"
+            $('#communication').append(msg)
+        })
+    
+    })
+    </script>
+    
+</body>
+</html>
