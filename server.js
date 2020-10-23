@@ -4,8 +4,8 @@ const path = require("path");
 const app = express();
 var online_users = [];
 
-const PORT = process.env.PORT;
-var server = app.listen(PORT || 3000);
+const PORT = process.env.PORT || 3000;
+var server = app.listen(PORT);
 var io = socket(server);
 
 app.get("/", (req, res) => {
