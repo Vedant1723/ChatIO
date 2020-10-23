@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"nodemon server.js"
+    "start": "node server.js",
+    "server":"nodemon server.js"
   },
   "author": "Rajesh Kaushal",
   "license": "ISC",
@@ -14,6 +15,6 @@
     "socket.io": "^2.3.0"
   },
   "devDependencies": {
-    "nodemon": "^1.19.4"
+    "nodemon": "^2.0.6"
   }
 }
