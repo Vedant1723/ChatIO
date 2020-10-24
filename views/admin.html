@@ -9,7 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
-    <H3>Welcome to Simple Chat</H3>
+    <H3>Welcome to Adminn Page</H3>
     <input type="text" id="msg"/>
     <select id="clients">
     </select>
@@ -23,9 +23,9 @@
         var flag=1
         var selected_client={}
         var name = prompt('What is your name ')
-        IO.emit('chatJoined',name)
+        IO.emit('AdminchatJoined',name)
 
-        IO.on('updateMenu', (online_users)=>{
+        IO.on('updateAdminMenu', (online_users)=>{
             var list_items=""
             for(var i=0;i<online_users.length;i++) {
                 var item = online_users[i]
